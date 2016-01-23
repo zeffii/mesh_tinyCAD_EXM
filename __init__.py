@@ -18,6 +18,17 @@ Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 END GPL LICENCE BLOCK
 '''
 
+bl_info = {
+    "name": "EXM addon for tinycad",
+    "author": "Dealga McArdle",
+    "version": (0, 1),
+    "blender": (2, 7, 6),
+    "category": "Mesh"
+}
+
+
+
+
 import math
 import itertools
 
@@ -157,7 +168,7 @@ class TCExtendEdgesMulti(bpy.types.Operator):
     @classmethod
     def poll(self, context):
         obj = context.active_object
-        return bool(obj) and (obj.type == 'MESH') and (obj.mode == 'EDIT_MESH')
+        return bool(obj) and (obj.type == 'MESH') and (obj.mode == 'EDIT')
 
 
     def modify_geometry(self, context, event_type):
@@ -247,3 +258,9 @@ class TCExtendEdgesMulti(bpy.types.Operator):
         else:
             self.report({"WARNING"}, "Please run operator from within 3d view")
             return {'CANCELLED'}
+
+def register():
+    bpy.utils.register_module(__name__)
+
+def unregister():
+    bpy.utils.unregister_module(__name__)
