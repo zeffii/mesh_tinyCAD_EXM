@@ -259,8 +259,21 @@ class TCExtendEdgesMulti(bpy.types.Operator):
             self.report({"WARNING"}, "Please run operator from within 3d view")
             return {'CANCELLED'}
 
+def menu_func(self, context):
+    operator = self.layout.operator
+    operator('tinycad.extendmulti', text='EXM | Extend multiple towards edge')
+
+
 def register():
     bpy.utils.register_module(__name__)
+    try:
+        bpy.types.VIEW3D_MT_edit_mesh_tinycad.append(menu_func)
+    except:
+        print('mesh_tinyCAD menu not found, cannot add')
 
 def unregister():
     bpy.utils.unregister_module(__name__)
+    try:
+        bpy.types.VIEW3D_MT_edit_mesh_tinycad.remove(menu_func)
+    except:
+        ...
